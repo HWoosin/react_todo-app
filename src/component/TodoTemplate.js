@@ -11,32 +11,32 @@ const TodoTemplate = () => {
 
   //todos 배열을 상태 관리
   const [todos, setTodos] = useState([
-    {
-      id:1,
-      title: '풀업',
-      done: false
-    },
-    {
-      id:2,
-      title: '스미스로우',
-      done: true
-    },
-    {
-      id:3,
-      title: '데드리프트',
-      done: false
-    },
-    {
-      id:4,
-      title: '렛풀다운',
-      done: false
-    }
+    // {
+    //   id:1,
+    //   title: '풀업',
+    //   done: false
+    // },
+    // {
+    //   id:2,
+    //   title: '스미스로우',
+    //   done: true
+    // },
+    // {
+    //   id:3,
+    //   title: '데드리프트',
+    //   done: false
+    // },
+    // {
+    //   id:4,
+    //   title: '렛풀다운',
+    //   done: false
+    // }
   ]);
 
   //id값 시퀀스 생성 함수
   const makeNewId = () => {
     if(todos.length === 0) return 1;
-    return todos[todos.length - 1].id +1;
+    return todos[todos.length-1].id+1;
   }
 
   //todoInput에게 todoText를 받아오는 함수
@@ -63,6 +63,26 @@ const TodoTemplate = () => {
 
     setTodos([...todos, newTodo]);
   }
+  
+  //할 일 삭제 처리 함수
+  const removeTodo = id => {
+    // console.log(`삭제 대상 id:${id}`);
+    // let idx;
+    // for(let i = 0; i<todos.length; i++){
+    //   if(id === todos[i].id){
+    //     idx=i;
+    //     break;
+    //   }
+    // }
+    // const copyTodos = [...todos];
+    // copyTodos.splice(idx, 1);
+
+    // setTodos(copyTodos);
+
+    //주어진 배열의 값들을 순회하여 조건에 맞는 요소들만 모아서
+    //새로운 배열로 리턴해 주는 함수.
+    setTodos(todos.filter(todo => todo.id !== id));
+  }
 
   useEffect(()=>{
     console.log(todos);
@@ -71,7 +91,7 @@ const TodoTemplate = () => {
   return (
     <div className='TodoTemplate'>
         <TodoHeader/>
-        <TodoMain todoList={todos}/>
+        <TodoMain todoList={todos} remove = {removeTodo}/>
         <TodoInput addTodo={addTodo}/>
     </div>
   )

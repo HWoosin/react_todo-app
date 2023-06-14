@@ -2,7 +2,7 @@ import React from 'react'
 import TodoItem from './TodoItem'
 import './scss/TodoMain.scss';
 
-const TodoMain = ({todoList, remove}) => {
+const TodoMain = ({todoList, remove, check}) => {
 
   // const rednerTodoList =() =>{
   //   const todoItems = [];
@@ -21,7 +21,7 @@ const TodoMain = ({todoList, remove}) => {
         {
           renderTodoList
         } */
-          todoList.map(todo => <TodoItem key={todo.id} item={todo} remove={remove}/>)
+          todoList.map(todo => <TodoItem key={todo.id} item={todo} remove={remove} check={check} />)
         }
     </ul>
   )

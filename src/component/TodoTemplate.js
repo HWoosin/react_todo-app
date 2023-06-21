@@ -115,7 +115,7 @@ const TodoTemplate = () => {
     //     cTodo.done = !cTodo.done;
     //   }
     // }
-    let check ={
+    const check ={
       'done' : !done,
       'id' : id
     }

@@ -25,7 +25,7 @@ const Header = () => {
 
                     <Grid item>
                         <div className='btn-group'>
-                            <Link to='/login'>로그인</Link>
+                            <Link to='/login'>로그인</Link>{/*여기에 Route와 같이쓴 Link*/}
                             <Link to='/join'>회원가입</Link>
                         </div>
 

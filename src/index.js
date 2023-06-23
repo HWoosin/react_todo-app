@@ -6,7 +6,7 @@ import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from 'react-router-dom';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
-root.render(
+root.render(//App에서의 해당부분만 로딩가능하게한다.
   <BrowserRouter>
     <App />
   </BrowserRouter>

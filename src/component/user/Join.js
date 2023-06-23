@@ -28,7 +28,7 @@ const Join = () => {
     });
 
     //검증 데이터를 상태변수에 저장하는 함수
-    const saveInputState = ({key, inputVal, flag, msg}) => {
+    const saveInputState = ({key, inputVal, flag, msg}) => {//key는 함수를 여러곳에서 쓰기위해사용, 어디서부르는지 확인하기위해 쓰임
         
         inputVal !== 'pass' && setUserValue({
             ...userValue,

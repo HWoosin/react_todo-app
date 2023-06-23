@@ -2,7 +2,11 @@ import React, { useState } from 'react'
 import {Button, Container, Grid,
     TextField, Typography, Link} from "@mui/material";
 
+import { API_BASE_URL as BASE, USER } from '../../config/host-config';
+
 const Join = () => {
+
+    const API_BASE_URL = BASE + USER;
 
     //상태변수로 회원가입 입력값 관리
     const [userValue, setUserValue] = useState({
@@ -80,10 +84,10 @@ const Join = () => {
             flag
         });
     };
-
+    
     const pwCheckHandler = e =>{
         //검증시작
-
+        
         let msg, flag = false;
         
         if(!e.target.value){
@@ -96,7 +100,7 @@ const Join = () => {
             msg = '패스워드가 일치합니다.';
             flag= true;
         }
-
+        
         saveInputState({
             key:'passwordCheck',
             inputVal: 'pass',
@@ -105,15 +109,29 @@ const Join = () => {
         });
     }
 
+    //이메일 중복체크 서버 통신 함수
+    const fetchDuplicateCheck = email =>{
+
+    };
+
     //이메일 입력창 체인지 이벤트 핸들러
     const emailHandler = e => {
 
         const inputVal = e.target.value;
+        let msg, flag = false;
 
-        setUserValue({
-            ...userValue,
-            email: inputVal
-        });
+        const emailRegex = /^[a-z0-9\.\-_]+@([a-z0-9\-]+\.)+[a-z]{2,6}$/;
+
+        if(!inputVal){
+            msg = '이메일은 필수입니다.';
+        }
+        else if(!emailRegex.test(inputVal)){
+            msg = '이메일 형식이 아닙니다.';
+        }
+        else{
+            //이메일 중복체크
+            fetchDuplicateCheck(inputVal);
+        }
 
     };
 

@@ -2,9 +2,14 @@ import React, { useState } from 'react'
 import {Button, Container, Grid,
     TextField, Typography, Link} from "@mui/material";
 
+//리다이렉트 사용하기
+import { useNavigate } from 'react-router-dom';
 import { API_BASE_URL as BASE, USER } from '../../config/host-config';
 
 const Join = () => {
+
+    //리다이렉트 사용하기
+    const redirection = useNavigate();
 
     const API_BASE_URL = BASE + USER;
 
@@ -205,6 +210,27 @@ const Join = () => {
         return true;
     }
 
+    //회원 가입 처리 서버요청
+    const fetchSignUpPost = () =>{
+        fetch(API_BASE_URL,{
+            method:'POST',
+            headers:{'content-type':'application/json'},
+            body:JSON.stringify(userValue)
+        })
+        .then(res => {
+            if(res.status === 200){
+                alert('회원가입에 성공했습니다!')
+                //로그인 페이지로 리다이렉트 하기
+                // window.location.href = '/login';
+                redirection('/login');
+            }
+            else{
+                alert("서버 통신이 원활하지 않습니다.");
+            }
+        })
+    }
+
+
     //회원가입 버튼 클릭 이벤트 핸들러
     const joinButtonClickHandler = e => {
         
@@ -212,8 +238,7 @@ const Join = () => {
 
         //회원 가입 서버 요청
         if(isValid()){
-            // fetchSignUpPost();
-            alert('회원 가입 정보를 서버에 전송한다.')
+            fetchSignUpPost();
         }
         else{
             alert('입력란을 다시 확인해 주세요!');

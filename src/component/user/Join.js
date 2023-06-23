@@ -112,6 +112,25 @@ const Join = () => {
     //이메일 중복체크 서버 통신 함수
     const fetchDuplicateCheck = email =>{
 
+        let msg = '',flag = false;
+        fetch(`${API_BASE_URL}/check?email=${email}`)
+        .then(res => res.json())
+        .then(json =>{
+            console.log(json);
+            if(json){
+                msg = '이메일이 중복되었습니다!';
+            }
+            else{
+                msg = '사용 가능한 이메일 입니다.';
+                flag = true;
+            }
+            setUserValue({...userValue, email: email});
+            setMessage({...message, email: msg});
+            setCorrect({...correct, email: flag});
+        })
+        .catch(err => {
+            console.log("서버 통신이 원활하지 않습니다.");
+        });
     };
 
     //이메일 입력창 체인지 이벤트 핸들러
@@ -131,7 +150,14 @@ const Join = () => {
         else{
             //이메일 중복체크
             fetchDuplicateCheck(inputVal);
+            return;
         }
+        saveInputState({
+            key: 'email',
+            inputVal,
+            msg,
+            flag
+        });
 
     };
 
@@ -169,13 +195,30 @@ const Join = () => {
             flag
         });
     };
+ 
+    //4개의 입력칸이 모두 검증에 통과했는지 여부를 검사
+    const isValid = () =>{
+        for(const key in correct){
+            const flag = correct[key];
+            if(!flag) return false;
+        }
+        return true;
+    }
 
-
+    //회원가입 버튼 클릭 이벤트 핸들러
     const joinButtonClickHandler = e => {
         
         e.preventDefault();
 
-        console.log(userValue);
+        //회원 가입 서버 요청
+        if(isValid()){
+            // fetchSignUpPost();
+            alert('회원 가입 정보를 서버에 전송한다.')
+        }
+        else{
+            alert('입력란을 다시 확인해 주세요!');
+        }
+
     }
 
 

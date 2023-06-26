@@ -6,6 +6,8 @@ import TodoTemplate from './component/todo/TodoTemplate';
 import Join from './component/user/Join';
 import Login from './component/user/Login';
 
+import 'bootstrap/dist/css/bootstrap.min.css';
+
 function App() {//일부러 url을 표시해주기 위해 사용하는 Route, 그럼 해당되는 곳에 Link를 줘야함
   return (
     <>

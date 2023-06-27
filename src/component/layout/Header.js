@@ -1,27 +1,32 @@
 import {AppBar, Toolbar, Grid, 
     Typography, Button} from "@mui/material";
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import './header.css';
 import { Link, useNavigate } from "react-router-dom";
 import { isLogin, getLoginUserInfo } from '../../util/login-utils';
+import AuthContext from "../../util/AuthContext";
 
 const Header = () => {
 
     const redirection = useNavigate();
 
-    const [userInfo, setUserInfo] = useState({});
+    //AuthContext에서 로그인 상태와 onLogout 함수를 가져옵니다.
+    const {isLoggedIn, onLogout, userName} = useContext(AuthContext);
 
-    const { token, userName, role } = userInfo;
+    // const [userInfo, setUserInfo] = useState({});
+
+    // const { token, userName, role } = userInfo;
 
     //로그아웃 핸들러
     const logoutHandler = e =>{
-        localStorage.clear();
+        //AuthContext의 onLogout함수를 호출하여 로그인 상태를 업뎃
+        onLogout();
         redirection('/login');
     }
 
-    useEffect(()=>{
-        setUserInfo(getLoginUserInfo());
-    }, []);
+    // useEffect(()=>{
+    //     setUserInfo(getLoginUserInfo());
+    // }, []);
 
     return (
         <AppBar position="fixed" style={{
@@ -39,7 +44,7 @@ const Header = () => {
                         }>
                             <Typography variant="h4">
                                 {
-                                    isLogin()? userName+'님' : '오늘'
+                                    isLoggedIn? userName+'님' : '오늘'
                                 }
                                 의 할일</Typography>   
                         </div>

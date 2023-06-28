@@ -245,10 +245,22 @@ const Join = () => {
 
     //회원 가입 처리 서버요청
     const fetchSignUpPost = () =>{
+
+        //JSON을 Blob타입으로 변경 후 FormData에 넣기
+        const userJsonBlob = new Blob(
+            [JSON.stringify(userValue)],
+            {type:'application/json'}
+        );
+
+        //이미지파일과 회원정보 JSON을 하나로 묶어야 함
+        //FormData객체를 활용해서.
+        const userFormData = new FormData();
+        userFormData.append('user', userJsonBlob);
+        userFormData.append('profileImage', $fileTag.current.files[0]);
+
         fetch(API_BASE_URL,{
             method:'POST',
-            headers:{'content-type':'application/json'},
-            body:JSON.stringify(userValue)
+            body: userFormData
         })
         .then(res => {
             if(res.status === 200){
